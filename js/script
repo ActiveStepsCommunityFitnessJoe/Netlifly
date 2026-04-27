@@ -1,204 +1,158 @@
+Yes — save this as:
+
+```text
+js/script.js
+```
+
+```javascript
 "use strict";
 
-/* ActiveSteps Community Fitness
-   Netlify + GitHub ready script.js
-*/
-
-document.addEventListener("DOMContentLoaded", () => {
-  setupHeroVideo();
-  setupBookingForm();
-  setupContactForm();
-  setupSmoothScrolling();
-  setupFadeAnimations();
-});
-
-function setupHeroVideo() {
+document.addEventListener("DOMContentLoaded", function () {
+  const bookingForm = document.getElementById("bookingForm");
+  const contactForm = document.getElementById("contactForm");
+  const bookingSuccess = document.getElementById("bookingSuccess");
+  const contactSuccess = document.getElementById("contactSuccess");
   const heroVideo = document.getElementById("heroVideo");
   const videoLabel = document.getElementById("videoLabel");
 
-  if (!heroVideo) return;
+  // Hide success messages on page load
+  if (bookingSuccess) bookingSuccess.style.display = "none";
+  if (contactSuccess) contactSuccess.style.display = "none";
 
-  const videos = [
-    {
-      src: "videos/fitness-1.mp4",
-      label: "Community Fitness"
-    },
-    {
-      src: "videos/fitness-2.mp4",
-      label: "Yoga & Wellbeing"
-    },
-    {
-      src: "videos/fitness-3.mp4",
-      label: "Strength Training"
-    }
-  ];
-
-  let currentVideo = 0;
-
-  function loadVideo(index) {
-    const selectedVideo = videos[index];
-
-    heroVideo.pause();
-    heroVideo.innerHTML = "";
-
-    const source = document.createElement("source");
-    source.src = selectedVideo.src;
-    source.type = "video/mp4";
-
-    heroVideo.appendChild(source);
-    heroVideo.load();
-
-    if (videoLabel) {
-      videoLabel.textContent = selectedVideo.label;
-    }
-
-    heroVideo.play().catch(() => {
-      console.log("Video autoplay was blocked by the browser.");
-    });
-  }
-
-  heroVideo.addEventListener("ended", () => {
-    currentVideo = (currentVideo + 1) % videos.length;
-    loadVideo(currentVideo);
-  });
-
-  loadVideo(currentVideo);
-}
-
-function setupBookingForm() {
-  const bookingForm = document.getElementById("bookingForm");
-  const bookingSuccess = document.getElementById("bookingSuccess");
-
-  if (!bookingForm) return;
-
-  bookingForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const bookingData = {
-      name: getValue("name"),
-      email: getValue("email"),
-      classType: getValue("classType"),
-      date: getValue("date"),
-      message: getValue("message"),
-      createdAt: new Date().toISOString()
-    };
-
-    if (!bookingData.name || !bookingData.email || !bookingData.classType || !bookingData.date) {
-      alert("Please complete all required booking fields.");
-      return;
-    }
-
-    saveToLocalStorage("activestepsBookings", bookingData);
-
-    showSuccess(bookingSuccess, "Thank you. Your booking request has been saved.");
-    bookingForm.reset();
-  });
-}
-
-function setupContactForm() {
-  const contactForm = document.getElementById("contactForm");
-  const contactSuccess = document.getElementById("contactSuccess");
-
-  if (!contactForm) return;
-
-  contactForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const contactData = {
-      name: getValue("contactName"),
-      email: getValue("contactEmail"),
-      message: getValue("contactMessage"),
-      createdAt: new Date().toISOString()
-    };
-
-    if (!contactData.name || !contactData.email || !contactData.message) {
-      alert("Please complete all required contact fields.");
-      return;
-    }
-
-    saveToLocalStorage("activestepsMessages", contactData);
-
-    showSuccess(contactSuccess, "Thank you. Your message has been saved.");
-    contactForm.reset();
-  });
-}
-
-function setupSmoothScrolling() {
-  const links = document.querySelectorAll('a[href^="#"]');
-
-  links.forEach((link) => {
-    link.addEventListener("click", (event) => {
+  // Smooth scrolling for internal links
+  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    link.addEventListener("click", function (event) {
       const targetId = link.getAttribute("href");
 
       if (!targetId || targetId === "#") return;
 
       const targetElement = document.querySelector(targetId);
 
-      if (!targetElement) return;
-
-      event.preventDefault();
-
-      targetElement.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
+      if (targetElement) {
+        event.preventDefault();
+        targetElement.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
     });
   });
-}
 
-function setupFadeAnimations() {
-  const animatedItems = document.querySelectorAll(
-    ".fade-up, .class-card, .price-card, .testimonial, .faq-card, .gallery-item, .stat-card"
-  );
+  // Booking form
+  if (bookingForm) {
+    bookingForm.addEventListener("submit", function (event) {
+      event.preventDefault();
 
-  if (!animatedItems.length) return;
+      if (!bookingForm.checkValidity()) {
+        bookingForm.reportValidity();
+        return;
+      }
 
-  if (!("IntersectionObserver" in window)) {
-    animatedItems.forEach((item) => item.classList.add("visible"));
-    return;
+      const bookingData = {
+        name: document.getElementById("name")?.value.trim() || "",
+        email: document.getElementById("email")?.value.trim() || "",
+        classType: document.getElementById("classType")?.value || "",
+        date: document.getElementById("date")?.value || "",
+        message: document.getElementById("message")?.value.trim() || "",
+        submittedAt: new Date().toISOString()
+      };
+
+      const savedBookings = JSON.parse(localStorage.getItem("activeStepsBookings") || "[]");
+      savedBookings.push(bookingData);
+      localStorage.setItem("activeStepsBookings", JSON.stringify(savedBookings));
+
+      if (bookingSuccess) {
+        bookingSuccess.style.display = "block";
+        bookingSuccess.textContent = "Thank you. Your booking request has been saved.";
+      }
+
+      bookingForm.reset();
+    });
   }
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
+  // Contact form
+  if (contactForm) {
+    contactForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      if (!contactForm.checkValidity()) {
+        contactForm.reportValidity();
+        return;
+      }
+
+      const contactData = {
+        name: document.getElementById("contactName")?.value.trim() || "",
+        email: document.getElementById("contactEmail")?.value.trim() || "",
+        message: document.getElementById("contactMessage")?.value.trim() || "",
+        submittedAt: new Date().toISOString()
+      };
+
+      const savedMessages = JSON.parse(localStorage.getItem("activeStepsMessages") || "[]");
+      savedMessages.push(contactData);
+      localStorage.setItem("activeStepsMessages", JSON.stringify(savedMessages));
+
+      if (contactSuccess) {
+        contactSuccess.style.display = "block";
+        contactSuccess.textContent = "Thank you. Your message has been saved.";
+      }
+
+      contactForm.reset();
+    });
+  }
+
+  // Hero video safety
+  if (heroVideo) {
+    heroVideo.muted = true;
+    heroVideo.playsInline = true;
+
+    const playPromise = heroVideo.play();
+
+    if (playPromise !== undefined) {
+      playPromise.catch(function () {
+        if (videoLabel) {
+          videoLabel.textContent = "Video ready";
         }
       });
-    },
-    {
-      threshold: 0.15
     }
-  );
-
-  animatedItems.forEach((item) => {
-    observer.observe(item);
-  });
-}
-
-function getValue(id) {
-  const element = document.getElementById(id);
-  return element ? element.value.trim() : "";
-}
-
-function saveToLocalStorage(key, data) {
-  try {
-    const currentData = JSON.parse(localStorage.getItem(key)) || [];
-    currentData.push(data);
-    localStorage.setItem(key, JSON.stringify(currentData));
-  } catch (error) {
-    console.error("Local storage save failed:", error);
   }
-}
 
-function showSuccess(element, message) {
-  if (!element) return;
+  // Fade-up animation when sections enter the screen
+  const fadeItems = document.querySelectorAll(".fade-up, .class-card, .price-card, .testimonial, .faq-card");
 
-  element.textContent = message;
-  element.style.display = "block";
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15
+      }
+    );
 
-  setTimeout(() => {
-    element.style.display = "none";
-  }, 5000);
-}
+    fadeItems.forEach(function (item) {
+      observer.observe(item);
+    });
+  } else {
+    fadeItems.forEach(function (item) {
+      item.classList.add("visible");
+    });
+  }
+
+  // Set minimum booking date to today
+  const dateInput = document.getElementById("date");
+
+  if (dateInput) {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const dd = String(today.getDate()).padStart(2, "0");
+
+    dateInput.min = `${yyyy}-${mm}-${dd}`;
+  }
+});
+```
