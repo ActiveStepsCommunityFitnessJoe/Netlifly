@@ -1,0 +1,204 @@
+"use strict";
+
+/* ActiveSteps Community Fitness
+   Netlify + GitHub ready script.js
+*/
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupHeroVideo();
+  setupBookingForm();
+  setupContactForm();
+  setupSmoothScrolling();
+  setupFadeAnimations();
+});
+
+function setupHeroVideo() {
+  const heroVideo = document.getElementById("heroVideo");
+  const videoLabel = document.getElementById("videoLabel");
+
+  if (!heroVideo) return;
+
+  const videos = [
+    {
+      src: "videos/fitness-1.mp4",
+      label: "Community Fitness"
+    },
+    {
+      src: "videos/fitness-2.mp4",
+      label: "Yoga & Wellbeing"
+    },
+    {
+      src: "videos/fitness-3.mp4",
+      label: "Strength Training"
+    }
+  ];
+
+  let currentVideo = 0;
+
+  function loadVideo(index) {
+    const selectedVideo = videos[index];
+
+    heroVideo.pause();
+    heroVideo.innerHTML = "";
+
+    const source = document.createElement("source");
+    source.src = selectedVideo.src;
+    source.type = "video/mp4";
+
+    heroVideo.appendChild(source);
+    heroVideo.load();
+
+    if (videoLabel) {
+      videoLabel.textContent = selectedVideo.label;
+    }
+
+    heroVideo.play().catch(() => {
+      console.log("Video autoplay was blocked by the browser.");
+    });
+  }
+
+  heroVideo.addEventListener("ended", () => {
+    currentVideo = (currentVideo + 1) % videos.length;
+    loadVideo(currentVideo);
+  });
+
+  loadVideo(currentVideo);
+}
+
+function setupBookingForm() {
+  const bookingForm = document.getElementById("bookingForm");
+  const bookingSuccess = document.getElementById("bookingSuccess");
+
+  if (!bookingForm) return;
+
+  bookingForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const bookingData = {
+      name: getValue("name"),
+      email: getValue("email"),
+      classType: getValue("classType"),
+      date: getValue("date"),
+      message: getValue("message"),
+      createdAt: new Date().toISOString()
+    };
+
+    if (!bookingData.name || !bookingData.email || !bookingData.classType || !bookingData.date) {
+      alert("Please complete all required booking fields.");
+      return;
+    }
+
+    saveToLocalStorage("activestepsBookings", bookingData);
+
+    showSuccess(bookingSuccess, "Thank you. Your booking request has been saved.");
+    bookingForm.reset();
+  });
+}
+
+function setupContactForm() {
+  const contactForm = document.getElementById("contactForm");
+  const contactSuccess = document.getElementById("contactSuccess");
+
+  if (!contactForm) return;
+
+  contactForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const contactData = {
+      name: getValue("contactName"),
+      email: getValue("contactEmail"),
+      message: getValue("contactMessage"),
+      createdAt: new Date().toISOString()
+    };
+
+    if (!contactData.name || !contactData.email || !contactData.message) {
+      alert("Please complete all required contact fields.");
+      return;
+    }
+
+    saveToLocalStorage("activestepsMessages", contactData);
+
+    showSuccess(contactSuccess, "Thank you. Your message has been saved.");
+    contactForm.reset();
+  });
+}
+
+function setupSmoothScrolling() {
+  const links = document.querySelectorAll('a[href^="#"]');
+
+  links.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const targetId = link.getAttribute("href");
+
+      if (!targetId || targetId === "#") return;
+
+      const targetElement = document.querySelector(targetId);
+
+      if (!targetElement) return;
+
+      event.preventDefault();
+
+      targetElement.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+  });
+}
+
+function setupFadeAnimations() {
+  const animatedItems = document.querySelectorAll(
+    ".fade-up, .class-card, .price-card, .testimonial, .faq-card, .gallery-item, .stat-card"
+  );
+
+  if (!animatedItems.length) return;
+
+  if (!("IntersectionObserver" in window)) {
+    animatedItems.forEach((item) => item.classList.add("visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.15
+    }
+  );
+
+  animatedItems.forEach((item) => {
+    observer.observe(item);
+  });
+}
+
+function getValue(id) {
+  const element = document.getElementById(id);
+  return element ? element.value.trim() : "";
+}
+
+function saveToLocalStorage(key, data) {
+  try {
+    const currentData = JSON.parse(localStorage.getItem(key)) || [];
+    currentData.push(data);
+    localStorage.setItem(key, JSON.stringify(currentData));
+  } catch (error) {
+    console.error("Local storage save failed:", error);
+  }
+}
+
+function showSuccess(element, message) {
+  if (!element) return;
+
+  element.textContent = message;
+  element.style.display = "block";
+
+  setTimeout(() => {
+    element.style.display = "none";
+  }, 5000);
+}
