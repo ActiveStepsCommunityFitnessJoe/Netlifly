@@ -1,17 +1,18 @@
+/* =====================================
+   ACTIVE STEPS COMMUNITY FITNESS CSS
+   RESTORED VERSION WITH IMAGE FILES
+===================================== */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   font-family: Arial, Helvetica, sans-serif;
   background: #f7fbf8;
-  color: #1f2933;
+  color: #222;
   line-height: 1.6;
 }
 
@@ -19,17 +20,15 @@ body {
 
 header {
   background: #ffffff;
-  padding: 20px;
   text-align: center;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 }
 
 .logo {
-  max-width: 280px;
-  width: 80%;
-  height: auto;
-  display: block;
-  margin: 0 auto 15px;
+  width: 260px;
+  max-width: 90%;
+  margin-bottom: 15px;
 }
 
 nav {
@@ -40,10 +39,9 @@ nav {
 }
 
 nav a {
-  color: #168f86;
   text-decoration: none;
+  color: #168f86;
   font-weight: bold;
-  font-size: 1rem;
 }
 
 nav a:hover {
@@ -53,40 +51,25 @@ nav a:hover {
 /* HERO */
 
 .hero {
-  min-height: 70vh;
-  padding: 90px 20px;
+  background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+              url("images/fitness-hero.png") center/cover no-repeat;
+  color: white;
   text-align: center;
-  background: linear-gradient(rgba(10, 80, 70, 0.75), rgba(10, 80, 70, 0.75)),
-    url("images/fitness-hero.png") center/cover no-repeat;
-  color: #ffffff;
+  padding: 90px 20px;
 }
 
 .hero h1 {
-  font-size: clamp(2rem, 5vw, 4rem);
-  margin-bottom: 20px;
+  font-size: 3rem;
+  margin-bottom: 15px;
 }
 
 .hero p {
-  max-width: 760px;
-  margin: 0 auto 30px;
   font-size: 1.2rem;
+  max-width: 700px;
+  margin: auto;
 }
 
-.btn {
-  display: inline-block;
-  background: #7ac943;
-  color: #ffffff;
-  padding: 14px 26px;
-  border-radius: 999px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.btn:hover {
-  background: #168f86;
-}
-
-/* SECTIONS */
+/* GENERAL SECTION */
 
 section {
   padding: 70px 20px;
@@ -94,55 +77,82 @@ section {
 
 section h2 {
   text-align: center;
-  color: #168f86;
   font-size: 2.2rem;
-  margin-bottom: 35px;
+  color: #168f86;
+  margin-bottom: 40px;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* CARDS */
+/* CARD GRID */
 
 .card-grid,
 .classes-grid,
 .services-grid {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+  gap: 30px;
 }
+
+/* CARDS */
 
 .card,
 .class-card,
 .service-card {
-  background: #ffffff;
-  border-radius: 22px;
+  background: white;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  transition: 0.3s;
 }
 
 .card:hover,
 .class-card:hover,
 .service-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+  transform: translateY(-8px);
 }
 
-.card img,
-.class-card img,
-.service-card img {
-  display: block;
-  width: 100%;
+.card-image,
+.class-image,
+.service-image {
   height: 230px;
-  object-fit: cover;
-  object-position: center;
-  background: #eaf5ef;
+  background-size: cover;
+  background-position: center;
 }
+
+/* IMAGE FILE NAMES RESTORED */
+
+/* Yoga */
+.yoga-image {
+  background-image: url("images/yoga-class.png");
+}
+
+/* Healthy Living */
+.health-image {
+  background-image: url("images/healthy-living-advice.png");
+}
+
+/* Strength */
+.strength-image {
+  background-image: url("images/strength-conditioning.png");
+}
+
+/* Park Run */
+.run-image {
+  background-image: url("images/park-run.png");
+}
+
+/* Personal Training */
+.pt-image {
+  background-image: url("images/personal-training.png");
+}
+
+/* Wellbeing */
+.wellbeing-image {
+  background-image: url("images/wellbeing-support.png");
+}
+
+/* CARD TEXT */
 
 .card-content,
 .class-card-content,
@@ -154,50 +164,23 @@ section h2 {
 .class-card h3,
 .service-card h3 {
   color: #168f86;
-  font-size: 1.35rem;
   margin-bottom: 12px;
+  font-size: 1.35rem;
 }
 
-.card p,
-.class-card p,
-.service-card p {
-  color: #444;
-  font-size: 1rem;
-}
+/* BOOKING FORM */
 
-/* ABOUT */
-
-.about {
-  background: #ffffff;
-}
-
-.about p {
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: center;
-  font-size: 1.1rem;
-}
-
-/* FORM */
-
-.booking {
-  background: #edf8f2;
+.booking-section {
+  background: #eef8f3;
 }
 
 form {
   max-width: 760px;
-  margin: 0 auto;
-  background: #ffffff;
+  margin: auto;
+  background: white;
   padding: 30px;
-  border-radius: 22px;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.10);
-}
-
-label {
-  display: block;
-  margin-bottom: 6px;
-  color: #168f86;
-  font-weight: bold;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
 
 input,
@@ -205,24 +188,18 @@ select,
 textarea {
   width: 100%;
   padding: 14px;
-  margin-bottom: 18px;
-  border: 1px solid #d5e5dc;
-  border-radius: 12px;
-  font-size: 1rem;
-}
-
-textarea {
-  min-height: 130px;
-  resize: vertical;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
 }
 
 button {
   width: 100%;
+  padding: 15px;
   border: none;
   background: #168f86;
-  color: #ffffff;
-  padding: 15px;
-  border-radius: 999px;
+  color: white;
+  border-radius: 30px;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
@@ -236,52 +213,34 @@ button:hover {
 
 footer {
   background: #123c38;
-  color: #ffffff;
+  color: white;
   text-align: center;
   padding: 35px 20px;
 }
 
-footer img {
-  max-width: 220px;
-  width: 70%;
-  height: auto;
+footer .logo {
+  width: 220px;
   margin-bottom: 15px;
 }
 
 /* MOBILE */
 
 @media (max-width: 768px) {
-  section {
-    padding: 50px 16px;
+  .hero h1 {
+    font-size: 2.2rem;
   }
 
-  .hero {
-    padding: 70px 18px;
-  }
-
-  nav {
-    gap: 12px;
-  }
-
-  .card img,
-  .class-card img,
-  .service-card img {
+  .card-image,
+  .class-image,
+  .service-image {
     height: 210px;
   }
 }
 
 @media (max-width: 480px) {
-  .logo {
-    max-width: 230px;
-  }
-
-  .card img,
-  .class-card img,
-  .service-card img {
+  .card-image,
+  .class-image,
+  .service-image {
     height: 190px;
-  }
-
-  form {
-    padding: 22px;
   }
 }
