@@ -1,806 +1,105 @@
+/* ================================
+   ACTIVE STEPS IMAGE CARD SECTION
+   Works on Netlify + GitHub Pages
+================================ */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.classes-section,
+.services-section {
+  padding: 70px 20px;
+  background: #f6faf7;
 }
 
-:root {
-  --green: #36c26b;
-  --dark-green: #159447;
-  --navy: #071b2f;
-  --blue: #0d2f4f;
-  --light: #f4f9f6;
-  --white: #ffffff;
-  --text: #1d2b36;
-  --muted: #6b7c88;
-  --shadow: 0 18px 45px rgba(0, 0, 0, 0.15);
-  --radius: 22px;
+.classes-section h2,
+.services-section h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #1f4f3a;
+  margin-bottom: 40px;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: var(--light);
-  color: var(--text);
-  line-height: 1.6;
-}
-
-img,
-video {
-  max-width: 100%;
-  display: block;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.container {
-  width: min(1180px, 92%);
+.card-grid,
+.classes-grid,
+.services-grid {
+  max-width: 1200px;
   margin: 0 auto;
-}
-
-.announcement {
-  background: var(--green);
-  color: var(--navy);
-  text-align: center;
-  padding: 10px 15px;
-  font-weight: 700;
-}
-
-.topbar {
-  background: rgba(7, 27, 47, 0.96);
-  color: var(--white);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: var(--shadow);
-}
-
-.nav {
-  min-height: 82px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 25px;
-}
-
-.logo-area {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo {
-  width: 56px;
-  height: 56px;
-  object-fit: contain;
-}
-
-.brand strong {
-  display: block;
-  font-size: 1.35rem;
-  color: var(--green);
-}
-
-.brand span {
-  font-size: 0.9rem;
-  color: #d6e6ef;
-}
-
-.nav-links {
-  display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-.nav-links a {
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: #eef7f1;
-}
-
-.nav-links a:hover {
-  color: var(--green);
-}
-
-.hero {
-  background:
-    linear-gradient(rgba(7, 27, 47, 0.9), rgba(7, 27, 47, 0.82)),
-    url("../images/community-fitness.jpg") center/cover no-repeat;
-  color: var(--white);
-  padding: 90px 0 55px;
-}
-
-.hero-grid {
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 45px;
-  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
 }
 
-.hero-logo {
-  width: 110px;
-  margin-bottom: 18px;
-}
-
-.pill,
-.badge {
-  display: inline-block;
-  background: rgba(54, 194, 107, 0.15);
-  color: var(--green);
-  border: 1px solid rgba(54, 194, 107, 0.5);
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-weight: 800;
-  margin-bottom: 18px;
-}
-
-.hero h1 {
-  font-size: clamp(2.3rem, 5vw, 4.8rem);
-  line-height: 1.05;
-  margin-bottom: 22px;
-}
-
-.hero h1 span {
-  color: var(--green);
-}
-
-.hero p {
-  color: #e4eef4;
-  font-size: 1.08rem;
-  margin-bottom: 16px;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-top: 28px;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  cursor: pointer;
-  border-radius: 999px;
-  padding: 13px 22px;
-  font-weight: 800;
-  transition: 0.25s ease;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-}
-
-.btn-green {
-  background: var(--green);
-  color: var(--navy);
-}
-
-.btn-white {
-  background: var(--white);
-  color: var(--navy);
-}
-
-.btn-dark {
-  background: var(--navy);
-  color: var(--white);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-}
-
-.btn-paypal {
-  background: #ffc439;
-  color: #111;
-}
-
-.btn-stripe {
-  background: #635bff;
-  color: #fff;
-}
-
-.hero-video-box {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 14px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-.hero-video-box video {
-  width: 100%;
-  height: 420px;
-  object-fit: cover;
-  border-radius: 18px;
-  background: #000;
-}
-
-.video-note {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 6px 4px;
-  color: #eaf7ef;
-  font-weight: 700;
-}
-
-#videoLabel {
-  color: var(--green);
-}
-
-.feature-strip {
-  margin-top: 48px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-}
-
-.feature {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: rgba(255, 255, 255, 0.12);
-  padding: 18px;
-  border-radius: var(--radius);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-}
-
-.feature-icon {
-  font-size: 2rem;
-}
-
-section {
-  padding: 80px 0;
-}
-
-.section-title {
-  text-align: center;
-  max-width: 850px;
-  margin: 0 auto 42px;
-}
-
-.section-title small,
-.benefits-card small {
-  color: var(--dark-green);
-  text-transform: uppercase;
-  font-weight: 900;
-  letter-spacing: 1px;
-}
-
-.section-title h2,
-.benefits-card h2 {
-  color: var(--navy);
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  line-height: 1.15;
-  margin: 12px 0 16px;
-}
-
-.section-title p {
-  color: var(--muted);
-  font-size: 1.05rem;
-}
-
-.about-grid {
-  display: grid;
-  grid-template-columns: 0.8fr 1.2fr 0.8fr;
-  gap: 24px;
-  align-items: stretch;
-}
-
-.photo-card,
-.class-image,
-.gallery-item {
-  background-size: cover;
-  background-position: center;
-  border-radius: var(--radius);
-  min-height: 320px;
-  box-shadow: var(--shadow);
-}
-
-.photo-yoga {
-  background-image: url("../images/yoga-class.png");
-}
-
-.photo-trainer {
-  background-image: url("../images/trainer.jpg");
-}
-
-.about-card,
-.benefits-card,
-.payment-card,
-.contact-card,
-form,
-.testimonial,
-.faq-card,
-.stat-card,
-.price-card,
-.class-card {
-  background: var(--white);
-  border-radius: var(--radius);
-  padding: 28px;
-  box-shadow: 0 14px 35px rgba(7, 27, 47, 0.1);
-}
-
-.about-card h3,
-.payment-card h3,
-.contact-card h3,
-form h3,
-.testimonial h3,
-.class-card h3,
-.price-card h3 {
-  color: var(--navy);
-  margin-bottom: 12px;
-}
-
-.about-card p {
-  margin-bottom: 14px;
-  color: var(--muted);
-}
-
-.tick-list {
-  list-style: none;
-  margin-top: 14px;
-}
-
-.tick-list li {
-  margin-bottom: 10px;
-  padding-left: 28px;
-  position: relative;
-}
-
-.tick-list li::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  color: var(--green);
-  font-weight: 900;
-}
-
-.stats-grid {
-  margin-top: 28px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-}
-
-.stat-card {
-  text-align: center;
-  font-weight: 800;
-}
-
-.stat-card strong {
-  display: block;
-  font-size: 2.4rem;
-  color: var(--green);
-}
-
-.benefits-section {
-  background: linear-gradient(135deg, #eaf8ef, #ffffff);
-}
-
-.benefits-card {
-  max-width: 960px;
-  margin: auto;
-  text-align: center;
-}
-
-.benefits-card p {
-  color: var(--muted);
-  margin-top: 14px;
-}
-
-.classes-section {
+.card,
+.class-card,
+.service-card {
   background: #ffffff;
-}
-
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-}
-
-.class-card {
-  padding: 0;
+  border-radius: 22px;
   overflow: hidden;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.10);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.class-image {
-  min-height: 220px;
-  border-radius: 0;
-  box-shadow: none;
+.card:hover,
+.class-card:hover,
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.16);
 }
 
-.img-yoga {
-  background-image: url("../images/yoga-class.png");
+.card img,
+.class-card img,
+.service-card img {
+  display: block;
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  object-position: center;
+  background: #e9f2ec;
 }
 
-.img-strength {
-  background-image: url("../images/community-fitness.png
-    ");
-}
-
-.img-wellbeing {
-  background-image: url("../images/wellbeing.jpg");
-}
-
-.img-community {
-  background-image: url("../images/community-fitness.png");
-}
-
-.img-healthy {
-  background-image: url("../images/healthy-lifestyle.png");
-}
-
-.img-trainer {
-  background-image: url("../images/trainer.jpg");
-}
-
-.class-content {
+.card-content,
+.class-card-content,
+.service-card-content {
   padding: 24px;
 }
 
-.class-content p {
-  color: var(--muted);
-  margin-bottom: 14px;
-}
-
-.class-meta {
-  color: var(--dark-green);
-  font-weight: 900;
-}
-
-.table-wrap {
-  overflow-x: auto;
-  background: var(--white);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 780px;
-}
-
-th,
-td {
-  padding: 18px;
-  text-align: left;
-  border-bottom: 1px solid #e7eef0;
-}
-
-th {
-  background: var(--navy);
-  color: var(--white);
-}
-
-td:first-child {
-  font-weight: 900;
-  color: var(--dark-green);
-}
-
-.pricing-section {
-  background: linear-gradient(135deg, var(--navy), var(--blue));
-  color: var(--white);
-}
-
-.pricing-section .section-title h2,
-.pricing-section .section-title p {
-  color: var(--white);
-}
-
-.price-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-}
-
-.price-card {
-  text-align: center;
-}
-
-.price-card.featured {
-  transform: scale(1.04);
-  border: 3px solid var(--green);
-}
-
-.price {
-  font-size: 3rem;
-  font-weight: 900;
-  color: var(--green);
-  margin: 15px 0;
-}
-
-.price-card p {
-  color: var(--muted);
-  margin-bottom: 20px;
-}
-
-.booking-grid,
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-}
-
-input,
-select,
-textarea {
-  width: 100%;
-  padding: 15px 16px;
-  border-radius: 14px;
-  border: 1px solid #d9e4e8;
-  margin-bottom: 14px;
-  font: inherit;
-}
-
-textarea {
-  min-height: 135px;
-  resize: vertical;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-  outline: 3px solid rgba(54, 194, 107, 0.25);
-  border-color: var(--green);
-}
-
-.success {
-  display: none;
-  background: #e9fff1;
-  color: #11642f;
-  padding: 12px;
-  border-radius: 12px;
-  margin-top: 14px;
-  font-weight: 800;
-}
-
-.payment-buttons {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-top: 22px;
-}
-
-.gallery-section {
-  background: #ffffff;
-}
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-}
-
-.gallery-item {
-  min-height: 270px;
-  display: flex;
-  align-items: flex-end;
-  overflow: hidden;
-}
-
-.gallery-item span {
-  width: 100%;
-  padding: 20px;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-  color: var(--white);
-  font-weight: 900;
-}
-
-.testimonial-grid,
-.faq-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-}
-
-.stars {
-  color: #f5b301;
-  font-size: 1.3rem;
-  margin-bottom: 10px;
-}
-
-.testimonial p {
-  color: var(--muted);
-  margin-bottom: 16px;
-}
-
-.faq-section {
-  background: #ffffff;
-}
-
-.faq-card {
-  cursor: pointer;
-}
-
-.faq-card summary {
-  font-weight: 900;
-  color: var(--navy);
-}
-
-.faq-card p {
-  margin-top: 12px;
-  color: var(--muted);
-}
-
-.social-row {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 18px;
-}
-
-.social-row a {
-  background: var(--navy);
-  color: var(--white);
-  padding: 9px 14px;
-  border-radius: 999px;
-  font-weight: 800;
-}
-
-.map-card {
-  margin-top: 28px;
-  overflow: hidden;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-
-.map-card iframe {
-  width: 100%;
-  height: 380px;
-  border: 0;
-  display: block;
-}
-
-footer {
-  background: var(--navy);
-  color: var(--white);
-  padding: 60px 0 25px;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: 1.4fr repeat(3, 1fr);
-  gap: 30px;
-}
-
-.footer-logo {
-  width: 80px;
-  margin-bottom: 15px;
-}
-
-footer h3 {
-  color: var(--green);
+.card h3,
+.class-card h3,
+.service-card h3 {
+  font-size: 1.35rem;
+  color: #1f4f3a;
   margin-bottom: 12px;
 }
 
-footer p {
-  color: #d6e6ef;
-  margin-bottom: 8px;
+.card p,
+.class-card p,
+.service-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
 }
 
-footer a:hover {
-  color: var(--green);
-}
-
-.copyright {
-  margin-top: 35px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
-  text-align: center;
-  color: #c7d4dc;
-  font-size: 0.95rem;
-}
-
-.fade-up,
-.class-card,
-.price-card,
-.testimonial,
-.faq-card,
-.gallery-item,
-.stat-card {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@media (max-width: 980px) {
-  .hero-grid,
-  .about-grid,
-  .booking-grid,
-  .contact-grid {
-    grid-template-columns: 1fr;
+/* Smaller screens */
+@media (max-width: 768px) {
+  .classes-section,
+  .services-section {
+    padding: 50px 16px;
   }
 
-  .feature-strip,
-  .stats-grid,
-  .cards-grid,
-  .price-grid,
-  .gallery-grid,
-  .testimonial-grid,
-  .faq-grid,
-  .footer-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .card img,
+  .class-card img,
+  .service-card img {
+    height: 210px;
   }
 
-  .price-card.featured {
-    transform: none;
-  }
-
-  .hero-video-box video {
-    height: 320px;
+  .classes-section h2,
+  .services-section h2 {
+    font-size: 1.8rem;
   }
 }
 
-@media (max-width: 720px) {
-  .nav {
-    flex-direction: column;
-    padding: 16px 0;
-  }
-
-  .nav-links {
-    justify-content: center;
-    gap: 12px;
-  }
-
-  .hero {
-    padding: 65px 0 45px;
-  }
-
-  .hero-actions {
-    flex-direction: column;
-  }
-
-  .btn {
-    width: 100%;
-  }
-
-  .feature-strip,
-  .stats-grid,
-  .cards-grid,
-  .price-grid,
-  .gallery-grid,
-  .testimonial-grid,
-  .faq-grid,
-  .footer-grid {
-    grid-template-columns: 1fr;
-  }
-
-  section {
-    padding: 58px 0;
-  }
-
-  .hero-video-box video {
-    height: 250px;
-  }
-
-  .video-note {
-    flex-direction: column;
-  }
-
-  .about-card,
-  .benefits-card,
-  .payment-card,
-  .contact-card,
-  form,
-  .testimonial,
-  .faq-card,
-  .stat-card,
-  .price-card {
-    padding: 22px;
+@media (max-width: 480px) {
+  .card img,
+  .class-card img,
+  .service-card img {
+    height: 190px;
   }
 }
