@@ -305,11 +305,11 @@ section {
 }
 
 .photo-yoga {
-  background-image: url("../images/wellbeing.jpg");
+  background-image: url("../images/wellbeing.png");
 }
 
 .photo-trainer {
-  background-image: url("../images/trainer.jpg");
+  background-image: url("../images/trainer.png");
 }
 
 .about-card,
@@ -418,11 +418,11 @@ form h3,
 }
 
 .img-yoga {
-  background-image: url("../images/wellbeing.jpg");
+  background-image: url("../images/wellbeing2.png");
 }
 
 .img-strength {
-  background-image: url("../images/community-fitness.jpg");
+  background-image: url("../images/community-fitness.png");
 }
 
 .img-wellbeing {
@@ -430,15 +430,15 @@ form h3,
 }
 
 .img-community {
-  background-image: url("../images/community-fitness.jpg");
+  background-image: url("../images/community-fitness2.png");
 }
 
 .img-healthy {
-  background-image: url("../images/healthy-lifestyle.jpg");
+  background-image: url("../images/healthy-lifestyle.png");
 }
 
 .img-trainer {
-  background-image: url("../images/trainer.jpg");
+  background-image: url("../images/trainer2.png");
 }
 
 .class-content {
