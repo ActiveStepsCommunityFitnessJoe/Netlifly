@@ -1,21 +1,110 @@
-/* ================================
-   ACTIVE STEPS IMAGE CARD SECTION
-   Works on Netlify + GitHub Pages
-================================ */
-
-.classes-section,
-.services-section {
-  padding: 70px 20px;
-  background: #f6faf7;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.classes-section h2,
-.services-section h2 {
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f7fbf8;
+  color: #1f2933;
+  line-height: 1.6;
+}
+
+/* HEADER */
+
+header {
+  background: #ffffff;
+  padding: 20px;
   text-align: center;
-  font-size: 2.2rem;
-  color: #1f4f3a;
-  margin-bottom: 40px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
 }
+
+.logo {
+  max-width: 280px;
+  width: 80%;
+  height: auto;
+  display: block;
+  margin: 0 auto 15px;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+nav a {
+  color: #168f86;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+nav a:hover {
+  color: #7ac943;
+}
+
+/* HERO */
+
+.hero {
+  min-height: 70vh;
+  padding: 90px 20px;
+  text-align: center;
+  background: linear-gradient(rgba(10, 80, 70, 0.75), rgba(10, 80, 70, 0.75)),
+    url("images/fitness-hero.png") center/cover no-repeat;
+  color: #ffffff;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  margin-bottom: 20px;
+}
+
+.hero p {
+  max-width: 760px;
+  margin: 0 auto 30px;
+  font-size: 1.2rem;
+}
+
+.btn {
+  display: inline-block;
+  background: #7ac943;
+  color: #ffffff;
+  padding: 14px 26px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background: #168f86;
+}
+
+/* SECTIONS */
+
+section {
+  padding: 70px 20px;
+}
+
+section h2 {
+  text-align: center;
+  color: #168f86;
+  font-size: 2.2rem;
+  margin-bottom: 35px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* CARDS */
 
 .card-grid,
 .classes-grid,
@@ -33,7 +122,7 @@
   background: #ffffff;
   border-radius: 22px;
   overflow: hidden;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.10);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -41,7 +130,7 @@
 .class-card:hover,
 .service-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
 }
 
 .card img,
@@ -52,7 +141,7 @@
   height: 230px;
   object-fit: cover;
   object-position: center;
-  background: #e9f2ec;
+  background: #eaf5ef;
 }
 
 .card-content,
@@ -64,24 +153,114 @@
 .card h3,
 .class-card h3,
 .service-card h3 {
+  color: #168f86;
   font-size: 1.35rem;
-  color: #1f4f3a;
   margin-bottom: 12px;
 }
 
 .card p,
 .class-card p,
 .service-card p {
-  font-size: 1rem;
-  line-height: 1.6;
   color: #444;
+  font-size: 1rem;
 }
 
-/* Smaller screens */
+/* ABOUT */
+
+.about {
+  background: #ffffff;
+}
+
+.about p {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+/* FORM */
+
+.booking {
+  background: #edf8f2;
+}
+
+form {
+  max-width: 760px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 22px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.10);
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  color: #168f86;
+  font-weight: bold;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 18px;
+  border: 1px solid #d5e5dc;
+  border-radius: 12px;
+  font-size: 1rem;
+}
+
+textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+button {
+  width: 100%;
+  border: none;
+  background: #168f86;
+  color: #ffffff;
+  padding: 15px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #7ac943;
+}
+
+/* FOOTER */
+
+footer {
+  background: #123c38;
+  color: #ffffff;
+  text-align: center;
+  padding: 35px 20px;
+}
+
+footer img {
+  max-width: 220px;
+  width: 70%;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+/* MOBILE */
+
 @media (max-width: 768px) {
-  .classes-section,
-  .services-section {
+  section {
     padding: 50px 16px;
+  }
+
+  .hero {
+    padding: 70px 18px;
+  }
+
+  nav {
+    gap: 12px;
   }
 
   .card img,
@@ -89,17 +268,20 @@
   .service-card img {
     height: 210px;
   }
-
-  .classes-section h2,
-  .services-section h2 {
-    font-size: 1.8rem;
-  }
 }
 
 @media (max-width: 480px) {
+  .logo {
+    max-width: 230px;
+  }
+
   .card img,
   .class-card img,
   .service-card img {
     height: 190px;
+  }
+
+  form {
+    padding: 22px;
   }
 }
