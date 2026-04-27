@@ -1,10 +1,3 @@
-Yes — save this as:
-
-```text
-js/script.js
-```
-
-```javascript
 "use strict";
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -14,12 +7,76 @@ document.addEventListener("DOMContentLoaded", function () {
   const contactSuccess = document.getElementById("contactSuccess");
   const heroVideo = document.getElementById("heroVideo");
   const videoLabel = document.getElementById("videoLabel");
+  const dateInput = document.getElementById("date");
 
-  // Hide success messages on page load
-  if (bookingSuccess) bookingSuccess.style.display = "none";
-  if (contactSuccess) contactSuccess.style.display = "none";
+  const videos = [
+    {
+      src: "video/community-workout.mp4",
+      label: "Community Fitness"
+    },
+    {
+      src: "video/parkrun.mp4",
+      label: "Park Run"
+    },
+    {
+      src: "video/wellbeing-yoga.mp4",
+      label: "Wellbeing Yoga"
+    }
+  ];
 
-  // Smooth scrolling for internal links
+  let currentVideoIndex = 0;
+  let videoTimer = null;
+
+  if (bookingSuccess) {
+    bookingSuccess.style.display = "none";
+  }
+
+  if (contactSuccess) {
+    contactSuccess.style.display = "none";
+  }
+
+  function playHeroVideo(index) {
+    if (!heroVideo || !videos[index]) return;
+
+    heroVideo.pause();
+    heroVideo.src = videos[index].src;
+    heroVideo.muted = true;
+    heroVideo.playsInline = true;
+    heroVideo.loop = false;
+    heroVideo.load();
+
+    if (videoLabel) {
+      videoLabel.textContent = videos[index].label;
+    }
+
+    const playPromise = heroVideo.play();
+
+    if (playPromise !== undefined) {
+      playPromise.catch(function () {
+        if (videoLabel) {
+          videoLabel.textContent = "Video ready";
+        }
+      });
+    }
+  }
+
+  function nextHeroVideo() {
+    currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+    playHeroVideo(currentVideoIndex);
+  }
+
+  if (heroVideo) {
+    playHeroVideo(currentVideoIndex);
+
+    heroVideo.addEventListener("ended", function () {
+      nextHeroVideo();
+    });
+
+    videoTimer = window.setInterval(function () {
+      nextHeroVideo();
+    }, 12000);
+  }
+
   document.querySelectorAll('a[href^="#"]').forEach(function (link) {
     link.addEventListener("click", function (event) {
       const targetId = link.getAttribute("href");
@@ -28,17 +85,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const targetElement = document.querySelector(targetId);
 
-      if (targetElement) {
-        event.preventDefault();
-        targetElement.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-      }
+      if (!targetElement) return;
+
+      event.preventDefault();
+
+      targetElement.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
     });
   });
 
-  // Booking form
+  if (dateInput) {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+
+    dateInput.min = `${year}-${month}-${day}`;
+  }
+
   if (bookingForm) {
     bookingForm.addEventListener("submit", function (event) {
       event.preventDefault();
@@ -57,20 +123,27 @@ document.addEventListener("DOMContentLoaded", function () {
         submittedAt: new Date().toISOString()
       };
 
-      const savedBookings = JSON.parse(localStorage.getItem("activeStepsBookings") || "[]");
+      const savedBookings = JSON.parse(
+        localStorage.getItem("activeStepsBookings") || "[]"
+      );
+
       savedBookings.push(bookingData);
-      localStorage.setItem("activeStepsBookings", JSON.stringify(savedBookings));
+
+      localStorage.setItem(
+        "activeStepsBookings",
+        JSON.stringify(savedBookings)
+      );
 
       if (bookingSuccess) {
         bookingSuccess.style.display = "block";
-        bookingSuccess.textContent = "Thank you. Your booking request has been saved.";
+        bookingSuccess.textContent =
+          "Thank you. Your booking request has been saved.";
       }
 
       bookingForm.reset();
     });
   }
 
-  // Contact form
   if (contactForm) {
     contactForm.addEventListener("submit", function (event) {
       event.preventDefault();
@@ -87,37 +160,30 @@ document.addEventListener("DOMContentLoaded", function () {
         submittedAt: new Date().toISOString()
       };
 
-      const savedMessages = JSON.parse(localStorage.getItem("activeStepsMessages") || "[]");
+      const savedMessages = JSON.parse(
+        localStorage.getItem("activeStepsMessages") || "[]"
+      );
+
       savedMessages.push(contactData);
-      localStorage.setItem("activeStepsMessages", JSON.stringify(savedMessages));
+
+      localStorage.setItem(
+        "activeStepsMessages",
+        JSON.stringify(savedMessages)
+      );
 
       if (contactSuccess) {
         contactSuccess.style.display = "block";
-        contactSuccess.textContent = "Thank you. Your message has been saved.";
+        contactSuccess.textContent =
+          "Thank you. Your message has been saved.";
       }
 
       contactForm.reset();
     });
   }
 
-  // Hero video safety
-  if (heroVideo) {
-    heroVideo.muted = true;
-    heroVideo.playsInline = true;
-
-    const playPromise = heroVideo.play();
-
-    if (playPromise !== undefined) {
-      playPromise.catch(function () {
-        if (videoLabel) {
-          videoLabel.textContent = "Video ready";
-        }
-      });
-    }
-  }
-
-  // Fade-up animation when sections enter the screen
-  const fadeItems = document.querySelectorAll(".fade-up, .class-card, .price-card, .testimonial, .faq-card");
+  const fadeItems = document.querySelectorAll(
+    ".fade-up, .class-card, .price-card, .testimonial, .faq-card, .gallery-item, .stat-card"
+  );
 
   if ("IntersectionObserver" in window) {
     const observer = new IntersectionObserver(
@@ -143,16 +209,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Set minimum booking date to today
-  const dateInput = document.getElementById("date");
-
-  if (dateInput) {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-    const dd = String(today.getDate()).padStart(2, "0");
-
-    dateInput.min = `${yyyy}-${mm}-${dd}`;
-  }
+  window.addEventListener("beforeunload", function () {
+    if (videoTimer) {
+      window.clearInterval(videoTimer);
+    }
+  });
 });
-```
